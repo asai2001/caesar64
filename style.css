@@ -1,0 +1,33 @@
+/* Custom styles */
+.panel-button {
+    transition: color 0.3s ease-in-out; /* Animasi warna teks */
+    color: #000000; /* Warna teks hitam */
+}
+
+.panel-button.active {
+    border-bottom-width: 2px;
+    border-color: #ffffff; /* Warna putih */
+}
+
+body {
+    background-color: #ffffff; /* Warna latar belakang putih */
+}
+
+.bg-white {
+    background-color: #ffffff; /* Warna latar belakang putih */
+}
+
+/* Tambahan gaya untuk tampilan yang lebih modern */
+input[type="text"],
+input[type="number"] {
+    border-color: #2563EB; /* Warna border input hitam */
+}
+
+button {
+    background-color: #ffffff; /* Warna background tombol putih */
+    color: #000000; /* Warna teks hitam pada tombol */
+}
+
+button:hover {
+    background-color: #f0f4f8; /* Warna background tombol saat hover */
+}

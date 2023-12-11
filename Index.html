@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar64 Encryption</title>
+    <!-- Tambahkan link untuk Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+
+<div class="bg-white rounded-md shadow-md mb-8 max-w-4xl w-full">
+    <div class="flex">
+        <button onclick="openPanel(1)" id="panel1" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Caesar64 Encryption</button>
+        <button onclick="openPanel(2)" id="panel2" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Caesar64 Decryption</button>
+        <button onclick="openPanel(3)" id="panel3" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Caesar Encryption</button>
+        <button onclick="openPanel(4)" id="panel4" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Caesar Decryption</button>
+        <button onclick="openPanel(5)" id="panel5" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Base64 Encryption</button>
+        <button onclick="openPanel(6)" id="panel6" class="panel-button w-1/6 py-2 px-4 text-center font-semibold focus:outline-none">Base64 Decryption</button>
+    </div>
+</div>
+
+<!-- Panel 1 Content: Caesar64 Encryption -->
+<div id="panelContent1" class="bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Caesar64 Encryption</h1>
+    <form id="caesarForm" class="mb-4">
+        <div class="mb-4">
+            <label for="text" class="block text-sm font-semibold mb-2">Enter Text:</label>
+            <input type="text" id="text" name="text" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <div class="mb-4">
+            <label for="caesarShift" class="block text-sm font-semibold mb-2">Caesar Shift (Numeric value):</label>
+            <input type="number" id="caesarShift" name="caesarShift" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="encryptText()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Encrypt</button>
+    </form>
+
+    <p class="font-semibold">Encrypted Text:</p>
+    <p id="encryptedText" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+
+<!-- Panel 2 Content: Caesar64 Decryption -->
+<div id="panelContent2" class="hidden bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Caesar64 Decryption</h1>
+    <form id="decryptForm" class="mb-4">
+        <div class="mb-4">
+            <label for="encodedText" class="block text-sm font-semibold mb-2">Enter Encoded Text:</label>
+            <input type="text" id="encodedText" name="encodedText" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <div class="mb-4">
+            <label for="decryptCaesarShift" class="block text-sm font-semibold mb-2">Caesar Shift (Numeric value):</label>
+            <input type="number" id="decryptCaesarShift" name="decryptCaesarShift" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="decryptText()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Decrypt</button>
+    </form>
+
+    <p class="font-semibold">Decrypted Text:</p>
+    <p id="decryptedText" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+<!-- Panel 3 Content: Caesar Encryption -->
+<div id="panelContent3" class="hidden bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Caesar Encryption</h1>
+    <form id="caesarOriForm" class="mb-4">
+        <div class="mb-4">
+            <label for="textCaesar" class="block text-sm font-semibold mb-2">Enter Text:</label>
+            <input type="text" id="textCaesar" name="textCaesar" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <div class="mb-4">
+            <label for="caesarShift" class="block text-sm font-semibold mb-2">Caesar Shift (Numeric value):</label>
+            <input type="number" id="caesarShift3" name="caesarShift" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="encryptCaesar()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Encrypt</button>
+    </form>
+
+    <p class="font-semibold">Encrypted Text:</p>
+    <p id="encryptedTextCaesar" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+
+<!-- Panel 4 Content: Caesar Decryption -->
+<div id="panelContent4" class="hidden bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Caesar Decryption</h1>
+    <form id="decryptCaesarForm" class="mb-4">
+        <div class="mb-4">
+            <label for="textToDecrypt" class="block text-sm font-semibold mb-2">Enter Encrypted Text:</label>
+            <input type="text" id="textToDecrypt" name="textToDecrypt" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <div class="mb-4">
+            <label for="decryptCaesarShift" class="block text-sm font-semibold mb-2">Caesar Shift (Numeric value):</label>
+            <input type="number" id="decryptCaesarShift2" name="decryptCaesarShift" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="decryptCaesar()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Decrypt</button>
+    </form>
+
+    <p class="font-semibold">Decrypted Text:</p>
+    <p id="decryptedCaesarText" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+
+
+<!-- Panel 5 Content: Base64 Encryption -->
+<div id="panelContent5" class="hidden bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Base64 Encryption</h1>
+    <form id="base64EncryptForm" class="mb-4">
+        <div class="mb-4">
+            <label for="textToEncryptBase64" class="block text-sm font-semibold mb-2">Enter Text:</label>
+            <input type="text" id="textToEncryptBase64" name="textToEncryptBase64" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="encryptBase64()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Encrypt</button>
+    </form>
+
+    <p class="font-semibold">Encrypted Text (Base64):</p>
+    <p id="encryptedTextBase64" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+
+
+<!-- Panel 6 Content: Base64 Decryption -->
+<div id="panelContent6" class="hidden bg-white rounded-md shadow-md p-8 max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Base64 Decryption</h1>
+    <form id="base64DecryptForm" class="mb-4">
+        <div class="mb-4">
+            <label for="textToDecryptBase64" class="block text-sm font-semibold mb-2">Enter Encoded Text:</label>
+            <input type="text" id="textToDecryptBase64" name="textToDecryptBase64" class="border border-gray-300 rounded-md p-2 w-full">
+        </div>
+        <button type="button" onclick="decryptBase64()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">Decrypt</button>
+    </form>
+
+    <p class="font-semibold">Decrypted Text:</p>
+    <p id="decryptedTextBase64" class="border border-gray-300 rounded-md p-2 mt-2"></p>
+</div>
+
+<!-- Script untuk memuat file JavaScript terpisah -->
+<script src="encrypt64.js"></script>
+<script src="decrypt64.js"></script>
+<script src="caesarencrypt.js"></script>
+<script src="decryptcaesar.js"></script>
+<script src="encryptbase64.js"></script>
+<script src="decryptbase64.js"></script>
+<script src="openpanel.js"></script>
+
+
+</body>
+</html>
